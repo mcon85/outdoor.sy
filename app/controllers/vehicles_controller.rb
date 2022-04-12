@@ -28,7 +28,6 @@ class VehiclesController < ApplicationController
     direction = params['direction']
 
     if column.in?(Vehicle::SORTABLE_COLUMNS) && direction.in?(%(asc desc))
-
       @vehicles = Vehicle.all.order("#{column} #{direction}")
 
       respond_to do |format|

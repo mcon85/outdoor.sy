@@ -118,3 +118,5 @@ Run both with:
 ```
 bundle exec rspec spec
 ```
+
+There are also files you can use with the app under `spec/fixtures/files`

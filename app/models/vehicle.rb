@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Vehicle < ApplicationRecord
-
   SORTABLE_COLUMNS = %w(customer_full_name vehicle_type)
 
   enum :vehicle_type, {
