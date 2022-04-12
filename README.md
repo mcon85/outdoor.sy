@@ -2,7 +2,7 @@
 
 # Outdoor.sy
 
-![Outdoor.sy](images/outdoorsy.png)
+![Outdoor.sy](app/assets/images/outdoorsy.png)
 
 ## Introduction
 
@@ -110,7 +110,10 @@ After cloning the repo and ensuring you have the appropriate Ruby and Rails vers
 - visit http://localhost:3000/
 
 **Tests**
+I've added a brief model spec and service spec.
+
+Run both with:
 
 ```
-bundle exec rspec spec/models/vehicle_spec.rb
+bundle exec rspec spec
 ```
