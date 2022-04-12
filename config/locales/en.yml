@@ -21,4 +21,4 @@ en:
             vehicle_length:
               greater_than: 'must be greater than 0, please enter feet as a whole number.'
             vehicle_name:
-              taken: 'must be unique in comination with vehicle type and customer email.'
+              taken: 'and type must be unique in combiantion with customer email.'

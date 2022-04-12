@@ -6,9 +6,7 @@ class VehiclesController < ApplicationController
   end
 
   def import
-    file = params['vehicle_import_file']
-
-    if file&.tempfile
+    if (file = params['vehicle_import_file']) && file&.tempfile
       begin
         VehicleImporter.new(file.tempfile).import_vehicles
 
@@ -17,7 +15,7 @@ class VehiclesController < ApplicationController
         flash[:danger] = "There was a problem processing your import. #{e.message}"
       end
     else
-      flash[:danger] = "Please select a file before attempting to import new vehicles."
+      flash[:danger] = 'Please select a file before attempting to import new vehicles.'
     end
 
     redirect_to action: :index
@@ -27,13 +25,13 @@ class VehiclesController < ApplicationController
     column = params['column']
     direction = params['direction']
 
-    if column.in?(Vehicle::SORTABLE_COLUMNS) && direction.in?(%(asc desc))
-      @vehicles = Vehicle.all.order("#{column} #{direction}")
+    return unless column.in?(Vehicle::SORTABLE_COLUMNS) && direction.in?(%(asc desc))
 
-      respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('vehicle-rows', partial: 'vehicles/vehicles', locals: { vehicles: @vehicles })
-        end
+    @vehicles = Vehicle.all.order("#{column} #{direction}")
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace('vehicle-rows', partial: 'vehicles/vehicles', locals: { vehicles: @vehicles })
       end
     end
   end

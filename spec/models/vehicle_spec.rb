@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Vehicle do
@@ -23,6 +25,6 @@ RSpec.describe Vehicle do
     it { should validate_numericality_of(:vehicle_length).only_integer.is_greater_than(0) }
 
     # uniqueness
-    it { should validate_uniqueness_of(:vehicle_name).scoped_to(%i(customer_email vehicle_type)).case_insensitive }
+    it { should validate_uniqueness_of(:vehicle_name).scoped_to(%i[customer_email vehicle_type]).case_insensitive }
   end
 end

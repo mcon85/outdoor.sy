@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe VehicleImporter, type: :model do
+RSpec.describe VehicleImporter do
   describe '#import_vehicles' do
     let(:file) { fixture_file_upload('/pipes.txt', 'text/plain') }
 
@@ -18,19 +20,19 @@ RSpec.describe VehicleImporter, type: :model do
 
     context 'when the file contains rows with the same email, vehicle name and type' do
       let(:file) { fixture_file_upload('/nonexactdupes.txt', 'text/plain') }
-      let(:expected_error_message) { 'Validation failed: Vehicle name must be unique in comination with vehicle type and customer email.' }
+      let(:error) { 'Validation failed: Vehicle name and type must be unique in combiantion with customer email.' }
 
       it 'raises a friendly erorr' do
-        expect { VehicleImporter.new(file.tempfile).import_vehicles }.to raise_error(ActiveRecord::RecordInvalid, expected_error_message)
+        expect { VehicleImporter.new(file.tempfile).import_vehicles }.to raise_error(ActiveRecord::RecordInvalid, error)
       end
     end
 
     context 'when vehicle length does not contain an integer' do
       let(:file) { fixture_file_upload('/badlength.txt', 'text/plain') }
-      let(:expected_error_message) { 'Validation failed: Vehicle length must be greater than 0, please enter feet as a whole number.' }
+      let(:error) { 'Validation failed: Vehicle length must be greater than 0, please enter feet as a whole number.' }
 
       it 'raises a friendly error' do
-        expect { VehicleImporter.new(file.tempfile).import_vehicles }.to raise_error(ActiveRecord::RecordInvalid, expected_error_message)
+        expect { VehicleImporter.new(file.tempfile).import_vehicles }.to raise_error(ActiveRecord::RecordInvalid, error)
       end
     end
   end
