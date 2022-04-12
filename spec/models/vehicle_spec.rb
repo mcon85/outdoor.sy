@@ -19,6 +19,9 @@ RSpec.describe Vehicle do
     it { should validate_presence_of(:vehicle_name) }
     it { should validate_presence_of(:vehicle_type) }
 
+    # numericality
+    it { should validate_numericality_of(:vehicle_length).only_integer.is_greater_than(0) }
+
     # uniqueness
     it { should validate_uniqueness_of(:vehicle_name).scoped_to(%i(customer_email vehicle_type)).case_insensitive }
   end

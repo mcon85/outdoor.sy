@@ -89,20 +89,28 @@ I have not gone deep in many areas given that this is an exercise. Were this a r
 - **file delimiter**: the data delimiter should be detected to ensure it is one of the supported options, and should raise a user-friendly error if not (as-is, if delimiter is not comma or pipe then the `DelimiterHelper` will return nil which will translate to an `ArgumentError` on `CSV.for_each...` due to `col_sep: nil`)
 - **validation errors**: a more robust version of service could evaluate the rows independently, persist those that are valid, and provide back errors for any that were invalid. The limited version here surfaces only the error for the first invalid `Vehicle` it encounters.
 - **processing**: the processing of the file should be delegated to a background job so that it can handle larger files/longer processing time without impacting overall performance. I'd likely also model a concept of an import so that I could store a status and timestamp for when it had been successfully processed.
-- **filtering**: if the hidden field values for column or direction are manipulated and as such contain unexpected values no filtering of the data will take place
+
 
 ## Additional Known Limitations
 
 - The `customer_full_name` value is derived from the provided first and last name values. One of the two values (first or last name) can be blank and the record will be persisted successfully with whichever value was present. I opted not to bloat `Vehicle` with separate first and last name fields here, and in the real world would model a concept of a `User` so this data did not live on the `Vehicle` model
 - Email value is not validated
+- If the hidden field values for column or direction are manipulated and as such contain unexpected values no filtering of the data will take place
 
 
-## Setup**
+## Setup
 
-After cloning the repo:
-- bundle
-- `rails db:create`
+After cloning the repo and ensuring you have the appropriate Ruby and Rails versions:
+
+- `bundle install`
+- `bundle exec rake db:setup`
+- `yarn`
 - `bin/dev`
 
+- visit http://localhost:3000/
 
 **Tests**
+
+```
+bundle exec rspec spec/models/vehicle_spec.rb
+```
