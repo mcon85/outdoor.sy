@@ -119,4 +119,6 @@ Run both with:
 bundle exec rspec spec
 ```
 
-There are also files you can use with the app under `spec/fixtures/files`
+**Sample Files**
+
+Tests leverage files under `spec/fixtures/files` that you may also use to experiment with the app. 
