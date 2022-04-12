@@ -4,5 +4,8 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import FilePickerController from "./file_picker_controller.js"
+application.register("file-picker", FilePickerController)
+
+import SortController from "./sort_controller.js"
+application.register("sort", SortController)

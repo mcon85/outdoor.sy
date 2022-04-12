@@ -1,0 +1,12 @@
+%tr.vehicles__table__rows__row
+  %td
+    = vehicle.customer_full_name
+  %td
+    = mail_to vehicle.customer_email
+  %td
+    = vehicle.vehicle_type
+  %td
+    = vehicle.vehicle_name
+  %td.text-end
+    = vehicle.vehicle_length
+    = t('vehicles.index.unit_abbreviation')

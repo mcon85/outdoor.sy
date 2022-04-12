@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root "vehicles#index"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  post 'filter', to: 'vehicles#filter', as: :vehicle_filter
+  post 'import', to: 'vehicles#import', as: :vehicle_import
 end
