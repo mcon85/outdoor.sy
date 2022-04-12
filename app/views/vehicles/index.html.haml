@@ -1,0 +1,44 @@
+.container-md.d-grid.gap-4
+  .vehicles-header.text-center.pt-5
+    = image_tag('logo.png', width: 250, alt: 'Outdoor.sy logo')
+    .title.fs-4.my-2.fw-light
+      = t('.customer_vehicles')
+
+  .vehicles-import
+    .fs-5.fw-light
+      = t('.import_heading')
+
+    .card.mt-2
+      .card-body
+        = form_with(url: vehicle_import_path, multipart: true ) do
+          .file-import.d-flex.justify-content-between{ data: { controller: 'file-picker' } }
+            = file_field_tag :vehicle_import_file, { accept: 'text/plain,text/csv', data: { 'file-picker-target': 'filePicker', action: 'file-picker#manageSubmitButton' } }
+            = submit_tag t('.import_cta'), disabled: true, class: 'btn btn-sm btn-success', data: { 'file-picker-target': 'submitButton' }
+
+  .vehicles-table
+    .fs-5.fw-light
+      = t('.table_heading')
+
+    .card.mt-2{ data: { controller: 'sort' } }
+      .card-body
+        - if @vehicles.any?
+          = form_with url: vehicle_filter_path, data: { 'sort-target': 'form' }, format: :turbo_stream do |f|
+            = f.hidden_field :column, value: nil, data: { 'sort-target': 'column' }
+            = f.hidden_field :direction, value: nil, data: { 'sort-target': 'direction' }
+          %table.table.table-sm.table-borderless.table-fixed
+            %thead
+              %tr
+                %th.sortable.name{ data: { 'sort-target': 'header', action: 'click->sort#applySort', column: :customer_full_name, direction: :asc, label: t('.headers.customer_name')} }
+                  = t('.headers.customer_name')
+                %th
+                  = t('.headers.email')
+                %th.sortable.type{ data: { 'sort-target': 'header', action: 'click->sort#applySort', column: :vehicle_type, direction: :asc, label: t('.headers.vehicle_type') } }
+                  = t('.headers.vehicle_type')
+                %th
+                  = t('.headers.name')
+                %th.text-end
+                  = t('.headers.length')
+            %tbody#vehicle-rows
+              = render @vehicles
+        - else
+          %em= t('.none')

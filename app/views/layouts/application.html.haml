@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    %title Outdoor.sy
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+    = favicon_link_tag asset_path('favicon.ico')
+  %body
+    - flash.each do |type, msg|
+      %div{ class: "alert alert-#{type}"}
+        = msg
+    = yield
