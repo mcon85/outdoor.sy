@@ -107,14 +107,13 @@ I added indexes to the two columns that the data would be sorted by — `custome
 
 After cloning the repo and ensuring you have the appropriate Ruby and Rails versions:
 
-- `bundle install`
-- `bundle exec rake db:setup`
+- `bin/setup`
 - `yarn`
 - `bin/dev`
 
 - visit http://localhost:3000/
 
-**Tests**
+## Tests
 
 I've added a brief model spec and service spec.
 
