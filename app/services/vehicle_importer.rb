@@ -6,17 +6,13 @@ class VehicleImporter
   include DelimiterHelper
 
   def initialize(tempfile)
-    @import_file = tempfile
+    @file = CSV.new(tempfile)
+    @file.read
+    @delimiter = detect_delimiter(@file.line)
   end
 
   def import_vehicles
-    file = CSV.new(@import_file)
-
-    file.read
-
-    @delimiter = detect_delimiter(file.line)
-
-    CSV.foreach(file.path, col_sep: @delimiter) do |row|
+    CSV.foreach(@file.path, col_sep: @delimiter) do |row|
       Vehicle.transaction do
         first, last, customer_email, type, name, length = row
 

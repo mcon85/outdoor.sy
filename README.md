@@ -64,7 +64,7 @@ All attributes are required
 
 Inclusion:
 
-`vehicle_type` is a enum with values bicycle, campervan, motorboat, rv, or sailboat. The value of `vehicle_type` is not separately validated at the model level for inclusion in `Vehicle#vehicle_types` because we get that check for free at the db level by virtue of being an enum column.
+`vehicle_type` is a enum with values bicycle, campervan, motorboat, rv, or sailboat. The value of `vehicle_type` is not separately validated at the model level for inclusion in `Vehicle#vehicle_types` because we get that check for free at the db level from Postgres by virtue of being an (enum)[https://www.postgresql.org/docs/current/datatype-enum.html] type column.
 
 Numericality:
 
@@ -83,12 +83,14 @@ The service sidesteps creating duplicate `Vehicle` records by virtue of using `f
 The service will stop when it encounters a row in the file does not translate to a valid `Vehicle` record. Rows processed ahead of the invalid row are persisted - the problematic row(s) can be address and the whole file retried without risk of creating duplicates.
 
 ## Didn't Do
+
 I have not gone deep in many areas given that this is an exercise. Were this a real world scenario, the following should be accounted for:
 
 - **file type**: the file picker has been restricted to 'text/plain' and 'text/csv' but this can be bypassed and the service should ensure it has an expected file type (as-is, a `CSV::MalformedCSVError` error will be raised if the file received is not delimited data)
 - **file delimiter**: the data delimiter should be detected to ensure it is one of the supported options, and should raise a user-friendly error if not (as-is, if delimiter is not comma or pipe then the `DelimiterHelper` will return nil which will translate to an `ArgumentError` on when `CSV` is given a `nil` value for the `col_sep` argument.)
 - **validation errors**: a more robust version of service could evaluate the rows independently, persist those that are valid, and provide back errors for any that were invalid. The limited version here surfaces only the error for the first invalid `Vehicle` it encounters.
 - **processing**: the processing of the file should be delegated to a background job so that it can handle larger files/longer processing time without impacting overall performance. I'd likely also model a concept of an import so that I could store a status and timestamp for when it had been successfully processed.
+- **pagination**: were this a real world application with data at scale the index should have pagination
 
 
 ## Additional Known Limitations
@@ -97,6 +99,9 @@ I have not gone deep in many areas given that this is an exercise. Were this a r
 - Email value is not validated
 - If the hidden field values for column or direction are manipulated and as such contain unexpected values no filtering of the data will take place
 
+## Extras
+
+I added indexes to the two columns that the data would be sorted by — `customer_full_name` and `vehicle_type`
 
 ## Setup
 
@@ -121,4 +126,4 @@ bundle exec rspec spec
 
 **Sample Files**
 
-Tests leverage files under `spec/fixtures/files` that you may also use to experiment with the app. 
+Tests leverage files under `spec/fixtures/files` that you may also use to experiment with the app.
