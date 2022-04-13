@@ -2,7 +2,7 @@
 
 # Outdoor.sy
 
-![Outdoor.sy](app/assets/images/outdoorsy.png)
+![Outdoor.sy](app/assets/images/outdoorsy.gif)
 
 ## Introduction
 
