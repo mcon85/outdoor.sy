@@ -20,7 +20,7 @@ RSpec.describe VehicleImporter do
 
     context 'when the file contains rows with the same email, vehicle name and type' do
       let(:file) { fixture_file_upload('/nonexactdupes.txt', 'text/plain') }
-      let(:error) { 'Validation failed: Vehicle name and type must be unique in combiantion with customer email.' }
+      let(:error) { 'Validation failed: Vehicle name and type must be unique in combination with customer email.' }
 
       it 'raises a friendly erorr' do
         expect { VehicleImporter.new(file.tempfile).import_vehicles }.to raise_error(ActiveRecord::RecordInvalid, error)
