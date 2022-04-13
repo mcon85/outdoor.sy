@@ -64,7 +64,7 @@ All attributes are required
 
 Inclusion:
 
-`vehicle_type` is a enum with values bicycle, campervan, motorboat, rv, or sailboat. The value of `vehicle_type` is not separately validated at the model level for inclusion in `Vehicle#vehicle_types` because we get that check for free at the db level from Postgres by virtue of being an (enum)[https://www.postgresql.org/docs/current/datatype-enum.html] type column.
+`vehicle_type` is a enum with values bicycle, campervan, motorboat, rv, or sailboat. The value of `vehicle_type` is not separately validated at the model level for inclusion in `Vehicle#vehicle_types` because we get that check for free at the db level from Postgres by virtue of being an [enum](https://www.postgresql.org/docs/current/datatype-enum.html) type column.
 
 Numericality:
 
