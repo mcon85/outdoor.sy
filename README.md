@@ -80,7 +80,7 @@ The importer service — for the purposes of the exercise - expects a well-forme
 
 The service sidesteps creating duplicate `Vehicle` records by virtue of using `find_or_initialize_by`, so the same file can be imported multiple times safely and exact duplicates within an individual file are not problematic.
 
-The service will stop when it encounters a row in the file does not translate to a valid `Vehicle` record. Rows processed ahead of the invalid row are persisted - the problematic row(s) can be address and the whole file retried without risk of creating duplicates.
+The service will stop when it encounters a row in the file does not translate to a valid `Vehicle` record. Rows processed ahead of the invalid row are persisted - the problematic row(s) can be addressed and the whole file retried without risk of creating duplicates.
 
 ## Didn't Do
 
